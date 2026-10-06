@@ -1,0 +1,20 @@
+title: Missing key
+id: 02ad74fc-a72e-4c51-b21f-0bbb3762d330
+status: experimental
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

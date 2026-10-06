@@ -1,0 +1,31 @@
+title: Member Added To Privileged Entra ID Role
+id: a158167c-2d5e-443b-87f1-62eb8631b2ac
+status: experimental
+description: |
+  Detects a successful assignment of the Global Administrator, Privileged Role Administrator
+  or Security Administrator role in Microsoft Entra ID. Attackers grant themselves these
+  roles to keep control of a tenant.
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+  - https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.003
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName: Add member to role
+    Result: success
+    TargetResources|contains:
+      - Global Administrator
+      - Privileged Role Administrator
+      - Security Administrator
+  condition: selection
+falsepositives:
+  - Approved role assignments made by identity administrators (check against change tickets)
+  - Privileged Identity Management activations, where PIM records them as role assignments
+level: high

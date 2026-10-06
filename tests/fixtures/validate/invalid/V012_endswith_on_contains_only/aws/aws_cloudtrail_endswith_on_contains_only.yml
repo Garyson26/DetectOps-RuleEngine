@@ -1,0 +1,20 @@
+title: Endswith on contains-only field
+id: 3ef281ee-06a0-426f-840f-0b03598c38c4
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: CreateUser
+    requestParameters|endswith: 'admin'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

@@ -1,0 +1,28 @@
+title: File Created In Linux Cron Directory
+id: 6c06d86c-a254-4e75-aa62-ec6d9b3d525b
+status: experimental
+description: |
+  Detects a file being written to a system cron directory or the per-user cron spool.
+  Attackers add cron jobs to keep access to a host or to re-run payloads on a schedule.
+references:
+  - https://attack.mitre.org/techniques/T1053/003/
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1053.003
+logsource:
+  product: linux
+  category: file_event
+detection:
+  selection:
+    TargetFilename|startswith:
+      - '/etc/cron.d/'
+      - '/etc/cron.daily/'
+      - '/etc/cron.hourly/'
+      - '/var/spool/cron/'
+  condition: selection
+falsepositives:
+  - Package installs and upgrades that ship cron jobs (for example logrotate, sysstat or certbot)
+  - Administrators or configuration management tools editing crontabs
+level: medium

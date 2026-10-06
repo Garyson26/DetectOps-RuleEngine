@@ -1,0 +1,35 @@
+title: Download Piped Directly To Shell On Linux
+id: 6f6cab39-90c0-444d-bffd-15bb57ea26a9
+status: experimental
+description: |
+  Detects curl or wget output piped straight into sh or bash. This runs remote code without
+  writing it to disk first and is a common way to stage malware, cryptominers and backdoors.
+references:
+  - https://attack.mitre.org/techniques/T1059/004/
+  - https://attack.mitre.org/techniques/T1105/
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.execution
+  - attack.t1059.004
+  - attack.command-and-control
+  - attack.t1105
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_download:
+    CommandLine|contains:
+      - 'curl '
+      - 'wget '
+  selection_pipe:
+    CommandLine|contains:
+      - '| sh'
+      - '| bash'
+      - '|sh'
+      - '|bash'
+  condition: all of selection_*
+falsepositives:
+  - Vendor install scripts run by administrators (for example package manager or agent bootstrap one-liners)
+  - Configuration management or CI jobs that install tooling this way
+level: medium

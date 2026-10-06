@@ -1,0 +1,20 @@
+title: Fixture win_process_creation
+id: 442630ac-c5f4-4deb-aee7-950058677184
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

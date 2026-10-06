@@ -1,0 +1,20 @@
+title: Field not in contract
+id: f91055dd-f27c-4837-8dcc-1488f73e873c
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\cmd.exe'
+    ProcessId: 1234
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

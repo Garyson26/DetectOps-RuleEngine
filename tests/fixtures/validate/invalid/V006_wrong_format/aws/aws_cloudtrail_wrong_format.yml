@@ -1,0 +1,21 @@
+title: Wrong date format
+id: eb9d8ea6-1940-4d70-86ac-34359e8fd990
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026/10/06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

@@ -1,0 +1,20 @@
+title: Fixture az_signin
+id: 0dcd59e4-9622-4807-88dc-80712616fa9c
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.initial-access
+  - attack.t1078.004
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    ResultType: 0
+    ClientAppUsed: Other clients
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

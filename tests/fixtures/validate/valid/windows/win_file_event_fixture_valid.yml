@@ -1,0 +1,19 @@
+title: Fixture win_file_event
+id: 077fbf3b-7cab-4280-9b74-62168df4732f
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1547.001
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains: '\Start Menu\Programs\Startup\'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

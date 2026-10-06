@@ -1,0 +1,43 @@
+title: Two documents
+id: d186c8c4-1fcf-4b31-b5c9-c1f9cb31ecec
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium
+---
+title: Second document
+id: 03f296f8-a78d-4a89-8feb-c3d61899a347
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

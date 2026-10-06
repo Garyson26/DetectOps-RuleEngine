@@ -1,0 +1,19 @@
+title: Undefined condition
+id: 0e0301cb-22f8-43dc-a444-c4067bb1251e
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: ConsoleLogin
+  condition: selection and filter
+falsepositives:
+  - Fixture
+level: medium

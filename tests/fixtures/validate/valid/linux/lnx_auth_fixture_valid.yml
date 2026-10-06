@@ -1,0 +1,20 @@
+title: Fixture lnx_auth
+id: 66b166a4-c7d4-4662-9737-1fd5b87a6ea7
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.credential-access
+  - attack.t1110
+logsource:
+  product: linux
+  service: auth
+detection:
+  selection:
+    ProcessName: sshd
+    SyslogMessage|contains: 'Failed password'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

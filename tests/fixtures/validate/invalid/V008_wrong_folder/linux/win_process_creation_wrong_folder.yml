@@ -1,0 +1,20 @@
+title: Wrong folder
+id: d62c464a-75bd-4e68-8339-34a926044912
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

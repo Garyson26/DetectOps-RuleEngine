@@ -1,0 +1,20 @@
+title: Fixture lnx_network_connection
+id: 8cb43b0b-557d-415d-8569-feb14492ea6b
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.command-and-control
+  - attack.t1571
+logsource:
+  product: linux
+  category: network_connection
+detection:
+  selection:
+    Image|endswith: '/nc'
+    DestinationPort: 4444
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium
