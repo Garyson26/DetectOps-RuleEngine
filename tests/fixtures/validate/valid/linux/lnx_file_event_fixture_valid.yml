@@ -1,0 +1,19 @@
+title: Fixture lnx_file_event
+id: 329c654d-df90-4898-90e2-270c07b405d9
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.004
+logsource:
+  product: linux
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith: '/.ssh/authorized_keys'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

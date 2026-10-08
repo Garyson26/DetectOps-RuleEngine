@@ -1,0 +1,21 @@
+title: Unknown technique
+id: 90e44276-9754-4acc-868e-7893b1e89a32
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t9999
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

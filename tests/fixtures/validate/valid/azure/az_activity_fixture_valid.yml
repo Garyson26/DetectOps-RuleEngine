@@ -1,0 +1,19 @@
+title: Fixture az_activity
+id: 07993276-f65e-4089-b58c-f8df3b6319c8
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.impact
+  - attack.t1485
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName: MICROSOFT.RESOURCES/SUBSCRIPTIONS/RESOURCEGROUPS/DELETE
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

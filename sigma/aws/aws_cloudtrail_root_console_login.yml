@@ -1,0 +1,25 @@
+title: AWS Root Account Console Login
+id: deaba4f5-8b77-4ed2-9a24-c62097455930
+status: experimental
+description: |
+  Detects a console sign-in by the AWS account root user. Root has unrestricted access and
+  should almost never be used day to day, so every root login needs to be confirmed.
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.initial-access
+  - attack.t1078.004
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: ConsoleLogin
+    userIdentity.type: Root
+  condition: selection
+falsepositives:
+  - Break-glass use of the root account for tasks that require it (for example changing account settings or closing the account)
+level: high

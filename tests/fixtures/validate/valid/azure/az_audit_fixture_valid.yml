@@ -1,0 +1,22 @@
+title: Fixture az_audit
+id: 9fda9da0-dc11-4c23-9b14-c1419f768b18
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName: Add service principal credentials
+    InitiatedBy|contains|all:
+      - fixture
+      - user
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

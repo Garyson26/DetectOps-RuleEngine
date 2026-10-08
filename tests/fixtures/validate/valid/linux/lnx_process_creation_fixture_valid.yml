@@ -1,0 +1,20 @@
+title: Fixture lnx_process_creation
+id: 0ba77e4b-c125-4996-8181-84418d005094
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.discovery
+  - attack.t1082
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/uname'
+    CommandLine|contains: ' -a'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

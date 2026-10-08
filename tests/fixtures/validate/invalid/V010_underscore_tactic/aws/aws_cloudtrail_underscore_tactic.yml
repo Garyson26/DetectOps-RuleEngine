@@ -1,0 +1,21 @@
+title: Underscore tactic
+id: b4468835-8e62-424a-86af-9745287ad7d2
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.defense_evasion
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+    requestParameters|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

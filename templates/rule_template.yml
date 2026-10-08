@@ -1,0 +1,66 @@
+# Sigma rule template for DetectOps-RuleEngine.
+#
+# Copy this file to sigma/<folder>/<contract key>_<what_it_detects>.yml, for example
+#   sigma/aws/aws_cloudtrail_iam_user_created.yml
+# then replace every value. The full rule standard is in CONTRIBUTING.md.
+# Check your rule with:
+#   python scripts/validate_rules.py --rules sigma --contract config/logsource_contract.yml
+#
+# Allowed top-level keys: the 11 required keys below, plus the optional keys
+# references, modified and related. Any other key fails check V002.
+
+# REQUIRED. Short, unique across the repo (V015). Say what happened, not how it was detected.
+title: AWS IAM User Created
+# REQUIRED. New random UUID version 4, lowercase, unique across the repo (V003).
+# Generate one with: python -c "import uuid; print(uuid.uuid4())"
+id: 7e1c5a2b-3d4f-4a6b-8c9d-0e1f2a3b4c5d
+# OPTIONAL. Links to rules this one derives from or replaces.
+# type is one of: derived, obsolete, merged, renamed, similar.
+related:
+  - id: 453f4fab-4b7a-470d-9f0d-604dd56f2351
+    type: similar
+# REQUIRED. Always "experimental" for a new rule (V005 allows experimental, test, stable).
+status: experimental
+# REQUIRED. What the rule detects and why it matters, in plain language.
+description: |
+  Detects creation of a new IAM user. Attackers with IAM permissions create users to keep
+  access to an AWS account. Most organisations create users through SSO or automation, so
+  a manual CreateUser call deserves a look.
+# OPTIONAL. Only real, working URLs.
+references:
+  - https://attack.mitre.org/techniques/T1136/003/
+# REQUIRED. Your name.
+author: Garyson Pereira
+# REQUIRED. Creation date, YYYY-MM-DD (V006).
+date: 2026-10-06
+# OPTIONAL. Date of the last meaningful change, YYYY-MM-DD (V006).
+modified: 2026-10-06
+# REQUIRED. Lowercase. At least one ATT&CK tactic tag and one technique tag (V010, V017).
+# Tactics use pySigma's hyphenated short names, e.g. attack.initial-access,
+# attack.defense-impairment, attack.command-and-control. Techniques: attack.tNNNN or attack.tNNNN.NNN.
+tags:
+  - attack.persistence
+  - attack.t1136.003
+# REQUIRED. Exactly the keys and values of one entry in config/logsource_contract.yml (V007).
+# The rule must sit in that entry's folder (V008) and its file name must start with the
+# entry's key followed by "_" (V009).
+logsource:
+  product: aws
+  service: cloudtrail
+# REQUIRED. Field-bound selections only: no keyword lists (V013). Only fields listed for the
+# contract entry (V011). Fields in contains_only_fields (here requestParameters and
+# responseElements) may only use |contains, optionally with |all (V012).
+# No correlation rules and no "| count()" aggregation (V016).
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateUser
+  filter_automation:
+    userAgent|contains: terraform
+  condition: selection and not filter_automation
+# REQUIRED. At least one realistic benign cause (V014).
+falsepositives:
+  - Administrators creating users by hand during onboarding
+  - Automation that does not use the user agent excluded above
+# REQUIRED. critical, high or medium (V004). See CONTRIBUTING.md for definitions.
+level: medium

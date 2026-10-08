@@ -1,0 +1,20 @@
+title: Fixture gcp_audit
+id: 2c2b99cd-79a0-4478-b3f9-06414c872c5b
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.impact
+  - attack.t1485
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.method_name: storage.buckets.delete
+    gcp.audit.request|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

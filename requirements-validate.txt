@@ -1,0 +1,8 @@
+# Validation toolchain (Spec 1). The pySigma and sigma-cli pins are shared with
+# requirements-convert.txt (Spec 2) and must stay identical. CI installs both files.
+pySigma==1.5.1
+sigma-cli==3.1.0
+PyYAML==6.0.3
+pytest==9.1.1
+# Runs the hooks in .pre-commit-config.yaml (needed for `pre-commit run --all-files`).
+pre-commit==4.6.2

@@ -1,0 +1,17 @@
+# Generated reports (validation JUnit, conversion report). Not committed.
+reports/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Note: platform-translations/ is generated but committed (drift-checked in CI).
+# Do not add it here.

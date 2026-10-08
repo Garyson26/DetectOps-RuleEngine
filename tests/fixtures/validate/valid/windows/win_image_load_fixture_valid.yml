@@ -1,0 +1,20 @@
+title: Fixture win_image_load
+id: 0ef9cd6f-70d0-4c8b-af24-5bbc6c1fd0fc
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+logsource:
+  product: windows
+  category: image_load
+detection:
+  selection:
+    ImageLoaded|endswith: '\dbghelp.dll'
+    Image|endswith: '\fixture.exe'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

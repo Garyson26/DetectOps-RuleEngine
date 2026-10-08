@@ -1,0 +1,136 @@
+# Frozen shared contract between rule authoring (Spec 1) and conversion (Spec 2).
+# Changing this file needs approval. Every field listed must convert on every
+# listed target, except fields named in that target's unsupported_fields.
+version: 1
+allowed_levels: [critical, high, medium]
+allowed_status: [experimental, test, stable]
+targets: [sentinel, xdr, splunk]
+
+logsources:
+  win_process_creation:
+    folder: windows
+    logsource: {product: windows, category: process_creation}
+    fields: [Image, OriginalFileName, CommandLine, ParentImage, ParentCommandLine, User, IntegrityLevel]
+    targets:
+      sentinel:
+        table: SecurityEvent
+        unsupported_fields: [OriginalFileName, ParentCommandLine, IntegrityLevel]
+        note: Event ID 4688 with command-line auditing enabled
+      xdr: {table: DeviceProcessEvents}
+      splunk: {}
+
+  win_network_connection:
+    folder: windows
+    logsource: {product: windows, category: network_connection}
+    fields: [Image, DestinationIp, DestinationPort, DestinationHostname, User]
+    targets:
+      xdr: {table: DeviceNetworkEvents}
+      splunk: {}
+
+  win_file_event:
+    folder: windows
+    logsource: {product: windows, category: file_event}
+    fields: [Image, TargetFilename]
+    targets:
+      xdr: {table: DeviceFileEvents}
+      splunk: {}
+
+  win_registry_set:
+    folder: windows
+    logsource: {product: windows, category: registry_set}
+    fields: [Image, TargetObject, Details]
+    targets:
+      xdr: {table: DeviceRegistryEvents}
+      splunk: {}
+
+  win_image_load:
+    folder: windows
+    logsource: {product: windows, category: image_load}
+    fields: [Image, ImageLoaded]
+    targets:
+      xdr: {table: DeviceImageLoadEvents}
+      splunk: {}
+
+  win_security:
+    folder: windows
+    logsource: {product: windows, service: security}
+    fields: [EventID, SubjectUserName, TargetUserName, LogonType, IpAddress, ServiceName, ServiceFileName, TicketEncryptionType, ObjectName, AccessMask, Status, MemberName, TargetSid]
+    targets:
+      sentinel: {table: SecurityEvent}
+      splunk: {}
+
+  lnx_process_creation:
+    folder: linux
+    logsource: {product: linux, category: process_creation}
+    fields: [Image, CommandLine, ParentImage, User]
+    targets:
+      xdr: {table: DeviceProcessEvents}
+      splunk: {}
+
+  lnx_file_event:
+    folder: linux
+    logsource: {product: linux, category: file_event}
+    fields: [Image, TargetFilename]
+    targets:
+      xdr: {table: DeviceFileEvents}
+      splunk: {}
+
+  lnx_network_connection:
+    folder: linux
+    logsource: {product: linux, category: network_connection}
+    fields: [Image, DestinationIp, DestinationPort, DestinationHostname]
+    targets:
+      xdr: {table: DeviceNetworkEvents}
+      splunk: {}
+
+  lnx_auth:
+    folder: linux
+    logsource: {product: linux, service: auth}
+    # Oakbrook convention: field names are the Sentinel Syslog column names.
+    fields: [ProcessName, SyslogMessage, HostName]
+    targets:
+      sentinel: {table: Syslog}
+      splunk: {}
+
+  aws_cloudtrail:
+    folder: aws
+    logsource: {product: aws, service: cloudtrail}
+    fields: [eventSource, eventName, eventType, userIdentity.type, userIdentity.arn, userIdentity.userName, userIdentity.accessKeyId, sourceIPAddress, userAgent, errorCode, errorMessage, awsRegion, recipientAccountId, requestParameters, responseElements]
+    contains_only_fields: [requestParameters, responseElements]
+    targets:
+      sentinel: {table: AWSCloudTrail}
+      splunk: {}
+
+  az_activity:
+    folder: azure
+    logsource: {product: azure, service: activitylogs}
+    fields: [operationName, ActivityStatusValue, Caller, CallerIpAddress, ResourceProviderValue, CategoryValue]
+    targets:
+      sentinel: {table: AzureActivity}
+      splunk: {}
+
+  az_signin:
+    folder: azure
+    logsource: {product: azure, service: signinlogs}
+    fields: [ResultType, ResultDescription, AppDisplayName, UserPrincipalName, IPAddress, Location, ClientAppUsed, AuthenticationRequirement, ConditionalAccessStatus, RiskLevelDuringSignIn, UserAgent, IsInteractive]
+    targets:
+      sentinel: {table: SigninLogs}
+      splunk: {}
+
+  az_audit:
+    folder: azure
+    logsource: {product: azure, service: auditlogs}
+    fields: [OperationName, Result, Category, LoggedByService, ActivityDisplayName, InitiatedBy, TargetResources]
+    contains_only_fields: [InitiatedBy, TargetResources]
+    targets:
+      sentinel: {table: AuditLogs}
+      splunk: {}
+
+  gcp_audit:
+    folder: gcp
+    logsource: {product: gcp, service: gcp.audit}
+    fields: [gcp.audit.method_name, gcp.audit.service_name, gcp.audit.principal_email, gcp.audit.resource_name, gcp.audit.resource_type, gcp.audit.project_id, gcp.audit.severity, gcp.audit.request, gcp.audit.caller_ip]
+    contains_only_fields: [gcp.audit.request, gcp.audit.caller_ip]
+    targets:
+      sentinel: {table: GCPAuditLogs}
+      splunk: {}

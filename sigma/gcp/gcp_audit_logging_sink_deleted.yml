@@ -1,0 +1,25 @@
+title: GCP Logging Sink Deleted
+id: cbcf49bc-b3f9-4a93-bcb0-46a1124983fc
+status: experimental
+description: |
+  Detects deletion of a Cloud Logging sink. Sinks export audit logs to BigQuery, Cloud
+  Storage, Pub/Sub or a SIEM; deleting one stops that export.
+references:
+  - https://attack.mitre.org/techniques/T1685/002/
+  - https://cloud.google.com/logging/docs/reference/v2/rest/v2/projects.sinks/delete
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.defense-impairment
+  - attack.t1685.002
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.method_name: google.logging.v2.ConfigServiceV2.DeleteSink
+  condition: selection
+falsepositives:
+  - Planned changes to log routing by the platform team
+  - Terraform or other infrastructure-as-code runs that replace sinks
+level: high

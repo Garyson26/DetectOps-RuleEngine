@@ -1,0 +1,19 @@
+title: Deprecated aggregation
+id: 63c98d5d-cc48-45b7-ae60-2bc8a5271300
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: ConsoleLogin
+  condition: selection | count() by sourceIPAddress > 10
+falsepositives:
+  - Fixture
+level: medium

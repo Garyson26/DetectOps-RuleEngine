@@ -1,0 +1,32 @@
+title: Kerberos Service Ticket Requested With RC4 Encryption
+id: 9f28819d-17d9-49d5-a7e7-e36608b53d2b
+status: experimental
+description: |
+  Detects a successful Kerberos service ticket request (event 4769) that uses RC4-HMAC
+  encryption (0x17) for a service account. Kerberoasting tools request RC4 tickets because
+  they are much faster to crack offline. Computer accounts and krbtgt are excluded.
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+  - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4769
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.credential-access
+  - attack.t1558.003
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+    Status: '0x0'
+  filter_computer_accounts:
+    ServiceName|endswith: '$'
+  filter_krbtgt:
+    ServiceName: krbtgt
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - Legacy applications or devices that only support RC4 Kerberos encryption
+  - Service accounts whose msDS-SupportedEncryptionTypes still allows RC4
+level: medium

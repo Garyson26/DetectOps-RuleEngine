@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="title desc">
+  <title id="title">DetectOps-RuleEngine</title>
+  <desc id="desc">Detection as Code: write Sigma rules once, validate them, and translate them to Sentinel KQL, Defender XDR KQL and Splunk SPL.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#132a3e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <clipPath id="card"><rect width="1280" height="320" rx="16"/></clipPath>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="320" rx="16" fill="url(#bg)"/>
+  <rect width="1280" height="320" rx="16" fill="url(#grid)"/>
+  <rect x="0" y="312" width="1280" height="8" fill="url(#accent)" clip-path="url(#card)"/>
+
+  <g font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif">
+    <!-- Shield mark -->
+    <g transform="translate(72 96)">
+      <path d="M48 0L94 18V58C94 92 74 116 48 128C22 116 2 92 2 58V18Z" fill="none" stroke="url(#accent)" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M28 64L42 78L70 48" fill="none" stroke="#2dd4bf" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <text x="200" y="146" fill="#f1f5f9" font-size="58" font-weight="700" letter-spacing="-1">DetectOps-RuleEngine</text>
+    <text x="202" y="190" fill="#94a3b8" font-size="24">Detection as Code. Write Sigma once, ship it to every SIEM.</text>
+
+    <!-- Flow: Sigma -> validate -> targets -->
+    <g font-family="'Cascadia Code', Consolas, 'SFMono-Regular', Menlo, monospace" font-size="17">
+      <rect x="202" y="226" width="96" height="40" rx="8" fill="#0f766e" fill-opacity="0.35" stroke="#2dd4bf"/>
+      <text x="250" y="252" fill="#ccfbf1" text-anchor="middle">sigma</text>
+
+      <line x1="306" y1="246" x2="350" y2="246" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <rect x="358" y="226" width="124" height="40" rx="8" fill="#1e293b" stroke="#475569"/>
+      <text x="420" y="252" fill="#e2e8f0" text-anchor="middle">validate</text>
+
+      <line x1="490" y1="246" x2="534" y2="246" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <rect x="542" y="226" width="150" height="40" rx="8" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="617" y="252" fill="#e0f2fe" text-anchor="middle">Sentinel KQL</text>
+      <rect x="704" y="226" width="176" height="40" rx="8" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="792" y="252" fill="#e0f2fe" text-anchor="middle">Defender XDR KQL</text>
+      <rect x="892" y="226" width="124" height="40" rx="8" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="954" y="252" fill="#e0f2fe" text-anchor="middle">Splunk SPL</text>
+    </g>
+
+    <!-- Platform tags -->
+    <g font-size="15" fill="#64748b" text-anchor="end">
+      <text x="1208" y="70">windows · linux · aws · azure · gcp</text>
+    </g>
+  </g>
+</svg>

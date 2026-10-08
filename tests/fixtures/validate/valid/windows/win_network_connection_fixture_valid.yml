@@ -1,0 +1,20 @@
+title: Fixture win_network_connection
+id: 3c3ef2c0-0ade-429c-a6c4-1b1a9a353854
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.command-and-control
+  - attack.t1071
+logsource:
+  product: windows
+  category: network_connection
+detection:
+  selection:
+    Image|endswith: '\rundll32.exe'
+    DestinationPort: 4444
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium

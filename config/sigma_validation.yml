@@ -1,0 +1,14 @@
+# Validator configuration for `sigma check` (check V017 in scripts/validate_rules.py).
+# Format: https://github.com/SigmaHQ/pySigma (SigmaValidator.from_dict)
+#
+# Every validator shipped with pySigma 1.5.1 is enabled. Policy: only exclude a validator
+# when it fails for a reason unrelated to rule quality, and record the validator name and
+# the reason here. The ATT&CK tag validator (attacktag) must stay enabled.
+#
+# Network: attacktag and d3_fendtag download MITRE ATT&CK and D3FEND data at runtime
+# (cached in ~/.cache/pysigma). On 2026-10-06 both downloads worked from the build machine
+# (ATT&CK 19.2, D3FEND 1.6.0), so no exclusions are needed.
+#
+# Current exclusions: none.
+validators:
+  - all

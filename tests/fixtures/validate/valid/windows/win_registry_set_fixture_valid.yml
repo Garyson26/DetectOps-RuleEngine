@@ -1,0 +1,20 @@
+title: Fixture win_registry_set
+id: ae6400f5-3e24-4625-9679-fbcc5e96989f
+status: experimental
+description: Test fixture for scripts/validate_rules.py.
+author: Garyson Pereira
+date: 2026-10-06
+tags:
+  - attack.persistence
+  - attack.t1547.001
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\CurrentVersion\Run\'
+    Details|contains: 'fixture'
+  condition: selection
+falsepositives:
+  - Fixture
+level: medium
